@@ -12,15 +12,8 @@ export async function DELETE(
 ) {
   const id = request.query.id;
   let notes = [];
-
-  try {
-    const data = await fs.readFile(DB_PATH, 'utf-8');
-    notes = JSON.parse(data);
-  } catch (error: unknown) {
-    if (error instanceof ErrnoException === 'ENOENT') {
-      return response.status(404).json({ error: 'Database file not found' });
-    }
-    throw error;
+  if (error instanceof ErrnoException === 'ENOENT') {
+    return response.status(404).json({ error: 'Database file not found' });
   }
 
   const updatedNotes = notes.filter((note: { id: string }) => note.id !== id);
