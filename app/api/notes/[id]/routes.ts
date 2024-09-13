@@ -16,7 +16,7 @@ export async function DELETE(
     const data = await fs.readFile(DB_PATH, 'utf-8');
     notes = JSON.parse(data);
   } catch (error: unknown) {
-    if (error instanceof ErrnoException && error.code === 'ENOENT') {
+    if (error instanceof ErrnoException === 'ENOENT') {
       return response.status(404).json({ error: 'Database file not found' });
     }
     throw error;
